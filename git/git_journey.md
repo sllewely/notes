@@ -20,6 +20,8 @@ Maybe the online resources for learning git had improved, or the cognitive burde
 
 First, I had to go through [basic setup on github and other beginning steps](https://github.com/sllewely/notes/blob/master/git/total_beginner.md).
 
+##### repos
+
 My team had a remote repo on github.  I cloned it to my local desktop, pulling down all of the files on the master branch onto my local machine.
 
 ```git clone <repo address>```
@@ -27,6 +29,10 @@ My team had a remote repo on github.  I cloned it to my local desktop, pulling d
 We worked using forks, which meant I had another remote repo I named myFork which also lived on github.
 
 ```git remote add myFork <repo address of the fork>```
+
+```git remote -v``` to view my added remote repos
+
+##### pulling and pushing changes
 
 We would pull changes from origin but push our branches to our forks, opening pull requests against the origin repo from our fork.
 
@@ -44,6 +50,8 @@ We would pull changes from origin but push our branches to our forks, opening pu
 
 And so my code would cycle around in this triangle.
 
+##### commits
+
 This concept of distributed code in different states in different locations, propelled by diffs and commits, was confusing to my new team members who had been used to other version control systems like SVN.  Then I was the expert, teaching others and learning more myself.
 
 ```git add -A``` staging everything, about to be commited
@@ -51,6 +59,8 @@ This concept of distributed code in different states in different locations, pro
 OR ```git add <specific file>```
 
 ```git commit -m "<my message describing these changes>"```
+
+##### diffs
 
 Probably the most confusing concept for those new to git is that my local branches are just long commit histories, and that when you pull and push, you're just pulling the commits that you don't have and pushing the commits the target branch doesn't yet have.  You're not checking simply checking out whole files identical to the remote repo.  You pull commits from a target branch into your local branch, but your local branch may have changes or commits the target branch doesn't have.
 
@@ -70,6 +80,8 @@ Probably the most confusing concept for those new to git is that my local branch
 
 ```git clean -fd``` to remove untracked changes locally (but not ignored files)
 
+##### remote branches
+
 So what's going on?  How *can* I get exact copies of remote branches?  How do I know what's different in my local branches?
 
 ```git fetch origin``` gets references to all branches on the origin repo.  This is actually happening automatically every time you pull from a remote repo.  First you get the references to the branch, then you merge in commits.
@@ -82,4 +94,6 @@ So what's going on?  How *can* I get exact copies of remote branches?  How do I 
 
 ```git fetch origin``` again of course to update all references to remote branches, getting references to any new commits other people may have pushed onto the remote origin
 
+##### getting changes
 
+##### resolving conflicts
