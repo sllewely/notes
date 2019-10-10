@@ -96,4 +96,52 @@ So what's going on?  How *can* I get exact copies of remote branches?  How do I 
 
 ##### getting changes
 
+There are 3 ways to get changes.
+
+```git merge origin/master``` pulls all commits from repo origin's master branch.  This creates an additional merge commit on top of your commit changes, because the merged remote commits were based off of a different commit history.  You can instead specify one of your local branches instead to get changes from
+
+```git pull origin master``` is the same as doing a ```git fetch origin``` then ```git merge origin/master```
+
+```git rebase origin/master```  rebases your branch off of origin/master.  Probably your branch was based off of a local version of master, master from a different point in time, or some other branch.  Then you added new changes.  A rebase makes origin/master your new branch, then applies each of your additional commits on top.  This does not create a merge commit, but instead changes your commit history since each of your commits are commited anew on top of the new base.
+
+```git cherry-pick <commit ref>``` pulls a single commit.  As long as you have a reference to a branch with this commit, you can cherry-pick it onto your branch.  Your local branch now has this new commit
+
 ##### resolving conflicts
+
+Now we're back to all of the problems I was encountering collaborating with my teammates in grad school.  Wow.  At this stage in my journey, I have so many tools and tricks for dealing with problems.  Any time I've wondered, "can I do x in git?" I've found a git solution online.
+
+So why do conflicts happen?  You've probably tried one of the above commands for getting changes, and someone changed the same file you did, which means you're in the middle of a merge conflict, a rebase conflict, or a cherry-pick conflict.
+
+If you don't want to deal with it right now or have made mistakes and want to undo, you can exit out of resolving the conflict and go back to where you were before.
+
+```git merge --abort```
+
+```git rebase --abort```
+
+```git cherry-pick --abort```
+
+You can open up the files and resolve the conflict by hand, then commit and continue.
+
+```git merge --continue```
+
+```git rebase --continue```
+
+```git cherry-pick --continue```
+
+Probably you'll see weird files with extensions like ```.orig```.  These are generated whenever you have a conflict, with conflict info.  You can safely delete them that you're done resolving the conflict.
+
+But honestly, I install a mergetool like [Beyond Compare](https://www.scootersoftware.com/features.php) which helps me to visualize 3-way merges (differences between remote, local, and base).
+
+```git mergetool``` to open the mergetool with the next conflicting file.
+
+If you feel like you've really messed things up (it happens!) and the branch you ended up pushing looks like a disaster, I have a few extra tricks.
+
+```git reflog``` to go view almost anything you've done, like switching branches, and you can checkout any of those previous states, for example, back to the way your branch was before you rebased.
+
+```git reset head^n``` to undo n commits, leaving you with a whole bunch of changes you can keep or throw away
+
+```git checkout .``` throw away changes to tracked files
+
+```git reset head^n --soft``` to uncommit n commits, but keep all of the changes staged.  You can make a new commit to compress all of these into one.
+
+I might check out the target branch then cherry-pick if things look crazy, but I only made a couple of commits.
