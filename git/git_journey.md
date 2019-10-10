@@ -31,25 +31,55 @@ We worked using forks, which meant I had another remote repo I named myFork whic
 We would pull changes from origin but push our branches to our forks, opening pull requests against the origin repo from our fork.
 
 ```git checkout master``` to go to my local master branch
+
 ```git pull origin master``` to get all changes from origin
+
 ```git checkout -b myFeatureBranch``` to start a new branch based off of master where I would do my work
+
 ```git push myFork myBranch``` to push my branch to my fork
+
+```git push myFork myBranch:newBranchName``` to push my local myBranch changes to a remote branch named newBranchName which may or may not exist on the remote
+
+```git push origin myFork :newBranchName``` to push nothing to newBranchName, deleting the branch
 
 And so my code would cycle around in this triangle.
 
 This concept of distributed code in different states in different locations, propelled by diffs and commits, was confusing to my new team members who had been used to other version control systems like SVN.  Then I was the expert, teaching others and learning more myself.
 
 ```git add -A``` staging everything, about to be commited
+
 OR ```git add <specific file>```
+
 ```git commit -m "<my message describing these changes>"```
 
 Probably the most confusing concept for those new to git is that my local branches are just long commit histories, and that when you pull and push, you're just pulling the commits that you don't have and pushing the commits the target branch doesn't yet have.  You're not checking simply checking out whole files identical to the remote repo.  You pull commits from a target branch into your local branch, but your local branch may have changes or commits the target branch doesn't have.
 
 ```git log``` to see the commit history of your current branch
+
+```git show <commit ref>``` to see changes that happened in the given commit
+
 ```git diff``` to see unstaged changes in your local branch
+
 ```git diff --name-only``` to see just the file names of changes
+
 ```git cherry-pick <commit ref>``` to checkout just a commit into your local branch
 
+
+
 ```git reset --hard``` to remove unstaged and staged changes locally to files git is tracking
+
 ```git clean -fd``` to remove untracked changes locally (but not ignored files)
+
+So what's going on?  How *can* I get exact copies of remote branches?  How do I know what's different in my local branches?
+
+```git fetch origin``` gets references to all branches on the origin repo.  This is actually happening automatically every time you pull from a remote repo.  First you get the references to the branch, then you merge in commits.
+
+```git show-refs``` to view all of those branch refs.
+
+```git diff master..origin/master``` to see differences in files between your local master and the remote repo origin's master branch
+
+```git checkout origin/master``` to checkout the remote version of a branch
+
+```git fetch origin``` again of course to update all references to remote branches, getting references to any new commits other people may have pushed onto the remote origin
+
 
