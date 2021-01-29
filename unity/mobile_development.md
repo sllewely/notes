@@ -14,3 +14,6 @@ https://gamedevdads.com/how-to-build-and-deploy-a-unity-app-to-an-android-device
 
 Default is Auto Rotation
 
+
+![image](https://user-images.githubusercontent.com/8452651/106310902-475b8880-6232-11eb-90ee-9d92622cfc94.png)
+
